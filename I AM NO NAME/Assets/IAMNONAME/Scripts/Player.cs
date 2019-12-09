@@ -85,7 +85,7 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
                 }
             }
 
-            transform.position += new Vector3(Input.GetAxis(Vertical) , 0,  Input.GetAxis(Horizontal)).normalized * speed * Time.fixedDeltaTime;
+            transform.position += transform.forward * Input.GetAxis(Horizontal) * speed * Time.fixedDeltaTime;
         }
     }
 }
