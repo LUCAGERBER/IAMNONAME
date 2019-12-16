@@ -50,7 +50,7 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
                 
             }
 
-            if (Input.GetKeyUp(KeyCode.Space)) Dash();
+            if (Input.GetMouseButtonDown(1)) Dash();
 		}
 
         private void FixedUpdate()
