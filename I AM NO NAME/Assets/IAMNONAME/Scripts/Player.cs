@@ -20,7 +20,6 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
         private float elapsedTime;
         private AudioSource myAudioSource;
 
-        private float elapsedSlowMoTime;
         private float slowDelay = .1f;
 
 
@@ -42,13 +41,8 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
         {
             //if(Input.GetKeyDown(KeyCode.Space)) myAudioSource.PlayOneShot(swordDraw);
 
-            if (Input.GetKey(KeyCode.Space))
-            {
-                elapsedSlowMoTime += Time.deltaTime;
-
-                if(elapsedSlowMoTime>= slowDelay) TimeManager.Instance.SlowTime();
-                
-            }
+            if (Input.GetKeyDown(KeyCode.LeftShift)) TimeManager.Instance.SlowTime();
+            else if(Input.GetKeyUp(KeyCode.LeftShift)) TimeManager.Instance.ResetTime();
 
             if (Input.GetMouseButtonDown(1)) Dash();
 		}
@@ -60,11 +54,10 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
 
         private void Dash()
         {
-            TimeManager.Instance.waiting = false;
+            TimeManager.Instance.ResetTime();
             previousSpeed = speed;
             speed = dashSpeed;
             myAudioSource.PlayOneShot(swordSlash);
-            elapsedSlowMoTime = 0;
             //Invoke("ReturnSword", .2f);
         }
 
