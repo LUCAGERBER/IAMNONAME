@@ -3,11 +3,10 @@
 /// Date : 08/11/2019 16:09
 ///-----------------------------------------------------------------
 
-using Com.DefaultCompany.HackSlash.ProjectName;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Com.IsartDigital.RushProject.Rush {
+namespace Com.IsartDigital.IAmNoName {
 	public class AnimationToolKit : MonoBehaviour {
 
         private Dictionary<string, ParticleSystem> _particleDico = new Dictionary<string, ParticleSystem>();

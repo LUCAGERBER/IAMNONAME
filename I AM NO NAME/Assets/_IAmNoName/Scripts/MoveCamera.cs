@@ -1,12 +1,14 @@
-///-----------------------------------------------------------------
+/////-----------------------------------------------------------------
 /// Author : Luca GERBER
 /// Date : 04/12/2019 17:49
 ///-----------------------------------------------------------------
 
 using UnityEngine;
 
-namespace Com.DefaultCompany.HackSlash.ProjectName {
-	public class MoveCamera : MonoBehaviour {
+namespace Com.IsartDigital.IAmNoName
+{
+    public class MoveCamera : MonoBehaviour
+    {
         [SerializeField] private Transform target;
         private void Update()
         {

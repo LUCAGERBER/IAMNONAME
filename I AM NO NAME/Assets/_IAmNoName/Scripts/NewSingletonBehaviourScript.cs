@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace Com.DefaultCompany.HackSlash.ProjectName {
+namespace Com.DefaultCompany.HackSlash.IAmNoName {
 	public class NewSingletonBehaviourScript : MonoBehaviour {
 		private static NewSingletonBehaviourScript instance;
 		public static NewSingletonBehaviourScript Instance { get { return instance; } }

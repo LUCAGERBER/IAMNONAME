@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace Com.DefaultCompany.HackSlash.ProjectName {
+namespace Com.IsartDigital.IAmNoName {
 	public class Player : MonoBehaviour {
 
         [SerializeField] private float speed = 5;
@@ -21,7 +21,6 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
         private AudioSource myAudioSource;
 
         private float slowDelay = .1f;
-
 
         private string Horizontal = "Horizontal";
         private string Vertical = "Vertical";
