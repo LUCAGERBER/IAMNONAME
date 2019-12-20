@@ -12,9 +12,18 @@ namespace Com.IsartDigital.IAmNoName {
         [SerializeField] private float speed = 5;
         [SerializeField] private float dashSpeed = 20;
         [SerializeField] private float dashLength = 1;
+
+        //Gère la vitesse de monté du saut
         [SerializeField] private float jumpStrength = 5;
+
+        //Gère le temps en suspension avant de redescendre 
         [SerializeField] private float jumpLength = 2;
+
+        //Gère la hauteur max du saut
         [SerializeField] private float jumpHeight;
+
+        //Gère la vitesse de descente du saut
+        [SerializeField] private float jumpDownStrength = 1;
 
         [SerializeField] private AudioClip swordDraw;
         [SerializeField] private AudioClip swordReturned;
@@ -87,6 +96,7 @@ namespace Com.IsartDigital.IAmNoName {
             StartCoroutine(JumpCoroutine());
         }
 
+        //Coroutine permet de gérer séparément monté, stagnation et descente du saut.
         private IEnumerator JumpCoroutine()
         {
             float elapsed = 0f;
@@ -97,10 +107,11 @@ namespace Com.IsartDigital.IAmNoName {
             while (elapsed <= jumpLength)
             {
                 rb.velocity = new Vector3(0, Mathf.Clamp(rb.velocity.y, baseHeight, baseHeight + jumpHeight), rb.velocity.z);
-                Debug.Log(rb.velocity.y);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
+
+            rb.AddForce(new Vector3(0, jumpDownStrength, 0), ForceMode.Impulse);
         }
 
         public void ReturnSword()
