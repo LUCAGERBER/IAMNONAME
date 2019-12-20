@@ -5,8 +5,10 @@
 
 using UnityEngine;
 
-namespace Com.DefaultCompany.HackSlash.ProjectName {
-	public class Enemy : MonoBehaviour {
+namespace Com.IsartDigital.IAmNoName
+{
+    public class Enemy : MonoBehaviour
+    {
 
         [SerializeField] private float speed = 5f;
 
@@ -14,12 +16,12 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
         private int roundChangeTime = 3;
 
         private bool isDying = false;
-		private void FixedUpdate ()
+        private void FixedUpdate()
         {
             if (isDying) return;
             LookAround();
             Move();
-		}
+        }
 
         private void Move()
         {
@@ -41,7 +43,7 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
         {
             transform.rotation = Quaternion.AngleAxis(Random.Range(0, 180), transform.up);
             GetComponent<Animator>().SetTrigger("Death");
-            StartCoroutine(CameraShake.Instance.Shake(.15f,.4f));
+            StartCoroutine(CameraShake.Instance.Shake(.15f, .4f));
             TimeManager.Instance.HitStop(.1f);
             isDying = true;
         }

@@ -6,8 +6,10 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Com.DefaultCompany.HackSlash.ProjectName {
-	public class CameraShake : MonoBehaviour {
+namespace Com.IsartDigital.IAmNoName
+{
+    public class CameraShake : MonoBehaviour
+    {
 
         private static CameraShake instance;
         public static CameraShake Instance { get { return instance; } }
@@ -29,7 +31,7 @@ namespace Com.DefaultCompany.HackSlash.ProjectName {
 
             float elapsed = 0f;
 
-            while(elapsed < duration)
+            while (elapsed < duration)
             {
                 float x = Random.Range(-1f, 1f) * magnitude;
                 float y = Random.Range(-1f, 1f) * magnitude;
