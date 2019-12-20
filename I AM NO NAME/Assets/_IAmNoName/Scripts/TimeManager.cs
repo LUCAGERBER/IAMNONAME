@@ -47,7 +47,7 @@ namespace Com.IsartDigital.IAmNoName
             StartCoroutine(Wait(duration));
         }
 
-        IEnumerator Wait(float duration)
+        private IEnumerator Wait(float duration)
         {
             waiting = true;
             yield return new WaitForSecondsRealtime(duration);
