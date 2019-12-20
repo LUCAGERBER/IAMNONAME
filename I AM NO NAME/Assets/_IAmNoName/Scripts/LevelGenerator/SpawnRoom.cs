@@ -3,9 +3,10 @@
 /// Date : 09/12/2019 21:03
 ///-----------------------------------------------------------------
 
+using Com.IsartDigital.IAmNoName.LevelGenerator;
 using UnityEngine;
 
-namespace Com.MaximilienGalea.Juiciness.Juiciness.Level {
+namespace Com.IsartDigital.IAmNoName.LevelGenerator {
     public class SpawnRoom : MonoBehaviour {
 
         [SerializeField] private LayerMask RoomMask;

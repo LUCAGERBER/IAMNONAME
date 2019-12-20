@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-namespace Com.MaximilienGalea.Juiciness.Juiciness.Level {
+namespace Com.IsartDigital.IAmNoName.LevelGenerator {
 	public class RoomType : MonoBehaviour {
 
         public int type;

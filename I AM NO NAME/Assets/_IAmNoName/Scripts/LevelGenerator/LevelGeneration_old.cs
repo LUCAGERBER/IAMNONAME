@@ -6,23 +6,19 @@
 using UnityEngine;
 
 namespace Com.IsartDigital.IAmNoName.LevelGenerator {
-    public class LevelGeneration : MonoBehaviour {
-        [SerializeField] private Transform[] startingPositions;
-        [SerializeField] public GameObject[] rooms; // 0 = LR, 1 = LRB, 2 = LRT, 3 = LRTB
+    public class LevelGeneration_old : MonoBehaviour {
         [SerializeField] private LayerMask RoomMask;
+        [SerializeField] private Transform[] startingPositions;
         [SerializeField] private float moveAmount;
+        private float timeBtwRoom;
         [SerializeField] private float startTimeBtwSpawn = 0.25f;
-        [Header("Level Size")]
-        [SerializeField] private float minX;
-        [SerializeField] private float maxX, minY, maxY;
-        [Header("Direction Percent")]
-        [SerializeField] private float right;
-        [SerializeField] private float left, up, down;
 
+        public GameObject[] rooms; // 0 = LR, 1 = LRB, 2 = LRT, 3 = LRTB
+
+        [SerializeField] private float minX, maxX, minY;
 
         [HideInInspector] public bool stopGeneration = false;
 
-        private float timeBtwRoom;
         private int direction;
         private int downCounter;
 
