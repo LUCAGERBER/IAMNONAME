@@ -8,47 +8,92 @@ using UnityEngine;
 namespace Com.IsartDigital.IAmNoName.LevelGenerator {
     public class LevelGeneration : MonoBehaviour {
         [SerializeField] private Transform[] startingPositions;
+        [SerializeField] private GameObject[] startingRooms;
         [SerializeField] public GameObject[] rooms; // 0 = LR, 1 = LRB, 2 = LRT, 3 = LRTB
         [SerializeField] private LayerMask RoomMask;
         [SerializeField] private float moveAmount;
         [SerializeField] private float startTimeBtwSpawn = 0.25f;
         [Header("Level Size")]
-        [SerializeField] private float minX;
-        [SerializeField] private float maxX, minY, maxY;
+        [SerializeField] private int maxRoomLegth;
+        [SerializeField] private int maxRoom;
+        // [SerializeField] private float minX;
+        // [SerializeField] private float maxX, minY, maxY;
         [Header("Direction Percent")]
         [SerializeField] private float right;
         [SerializeField] private float left, up, down;
 
-
+        
         [HideInInspector] public bool stopGeneration = false;
 
-        private float timeBtwRoom;
-        private int direction;
-        private int downCounter;
+        private float _timeBtwRoom;
+        private int _direction;
+        private int _downCounter;
+        private int _roomCount;
+
+        private enum Direction {
+            rigth,
+            left,
+            up,
+            down
+        }
 
         private void Start() {
+            CreateStartRoom();
+
+            _direction = Random.Range(0, 101);
+            _timeBtwRoom = startTimeBtwSpawn;
+
+            // define total percent
+            left += right;
+            up += left;
+            down += up;
+        }
+
+        //private void Update() {
+        //    if (_timeBtwRoom <= 0 && !stopGeneration) {
+        //        //Move();
+        //        _timeBtwRoom = startTimeBtwSpawn;
+        //    } else {
+        //        _timeBtwRoom -= Time.deltaTime;
+        //    }
+        //}
+
+        private void CreateStartRoom() {
             int randStartPos = Random.Range(0, startingPositions.Length);
             transform.position = startingPositions[randStartPos].position;
-            Instantiate(rooms[0], transform.position, Quaternion.identity);
 
-            direction = Random.Range(1, 6);
-            timeBtwRoom = startTimeBtwSpawn;
+            int randStarRoom = Random.Range(0, startingRooms.Length);
+            Instantiate(startingRooms[randStarRoom], transform.position, Quaternion.identity);
         }
 
-        private void Update() {
-            if (timeBtwRoom <= 0 && !stopGeneration) {
-                Move();
-                timeBtwRoom = startTimeBtwSpawn;
-            } else {
-                timeBtwRoom -= Time.deltaTime;
-            }
-        }
+        //private void newRoom(float x, float y,int roomLength, Vector3 previousPos) {
+        //    if (_roomCount >= maxRoom) {
+        //        return;
+        //    }
 
+        //    _roomCount++;
 
+        //    while(++roomLength < maxRoomLegth ) {
+        //        // init
+        //        bool roomUsed = false;
+        //        float xOffset = x - previousPos.x;
+        //        float yOffset = y - previousPos.y;
+
+        //        previousPos = new Vector3(x, y);
+
+        //        // go frwd
+        //        if (true) {
+
+        //        }
+
+        //    }
+        //}
+
+        /*
         private void Move() {
-            if (direction <= 2) { // Move Right
+            if (_direction <= right) { // Move Right
                 if (transform.position.x < maxX) {
-                    downCounter = 0;
+                    _downCounter = 0;
 
                     Vector2 newPos = new Vector2(transform.position.x + moveAmount, transform.position.y);
                     transform.position = newPos;
@@ -56,22 +101,22 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
                     int rand = Random.Range(0, rooms.Length);
                     Instantiate(rooms[rand], transform.position, Quaternion.identity);
 
-                    direction = Random.Range(1, 6);
+                    _direction = Random.Range(1, 6);
 
-                    if (direction == 3) {
-                        direction = 2;
+                    if (_direction == 3) {
+                        _direction = 2;
                     }
-                    if (direction == 4) {
-                        direction = 5;
+                    if (_direction == 4) {
+                        _direction = 5;
                     }
 
                 } else {
-                    direction = 5;
+                    _direction = 5;
                 }
 
-            } else if (direction <= 4) { // move Left
+            } else if (_direction <= left) { // move Left
                 if (transform.position.x > minX) {
-                    downCounter = 0;
+                    _downCounter = 0;
 
                     Vector2 newPos = new Vector2(transform.position.x - moveAmount, transform.position.y);
                     transform.position = newPos;
@@ -79,14 +124,14 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
                     int rand = Random.Range(0, rooms.Length);
                     Instantiate(rooms[rand], transform.position, Quaternion.identity);
 
-                    direction = Random.Range(3, 6);
+                    _direction = Random.Range(3, 6);
                 } else {
-                    direction = 5;
+                    _direction = 5;
                 }
 
-            } else if (direction == 5) { // Move Down
+            } else if (_direction == 5) { // Move Down
 
-                downCounter++;
+                _downCounter++;
 
                 if (transform.position.y > minY) {
                     RaycastHit hit;
@@ -94,7 +139,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
                     Collider roomDetection = hit.collider;
                     if (roomDetection.GetComponent<RoomType>().type != 1 && roomDetection.GetComponent<RoomType>().type != 3) {
 
-                        if (downCounter >= 2) {
+                        if (_downCounter >= 2) {
                             roomDetection.GetComponent<RoomType>().RoomDestruction();
                             Instantiate(rooms[3], transform.position, Quaternion.identity);
                         } else {
@@ -115,7 +160,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
                     int rand = Random.Range(2, 4);
                     Instantiate(rooms[rand], transform.position, Quaternion.identity);
 
-                    direction = Random.Range(1, 6);
+                    _direction = Random.Range(1, 6);
 
                 } else {
                     // stop generation
@@ -124,5 +169,6 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
             }
 
         }
+        */
     }
 }
