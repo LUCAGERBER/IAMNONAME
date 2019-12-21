@@ -7,9 +7,15 @@ using UnityEngine;
 
 namespace Com.IsartDigital.IAmNoName.LevelGenerator {
     public class LevelGeneration : MonoBehaviour {
+        [SerializeField] private string seed = "seed";
         [SerializeField] private Transform[] startingPositions;
         [SerializeField] private GameObject[] startingRooms;
-        [SerializeField] public GameObject[] rooms; // 0 = LR, 1 = LRB, 2 = LRT, 3 = LRTB
+        [Header("Rooms")]
+        [SerializeField] public GameObject[] leftRooms;
+        [SerializeField] public GameObject[] rightRooms;
+        [SerializeField] public GameObject[] topRooms;
+        [SerializeField] public GameObject[] bottomRooms;
+        [Space]
         [SerializeField] private LayerMask RoomMask;
         [SerializeField] private float moveAmount;
         [SerializeField] private float startTimeBtwSpawn = 0.25f;
@@ -29,12 +35,27 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         private int _direction;
         private int _downCounter;
         private int _roomCount;
+        private int _seed;
+
+        private static LevelGeneration _instance;
+        public static LevelGeneration Instance { get { return _instance; } }
 
         private enum Direction {
             rigth,
             left,
             up,
             down
+        }
+        
+        private void Awake() {
+            if (_instance) {
+                Destroy(gameObject);
+                return;
+            }
+            _instance = this;
+
+            _seed = seed.GetHashCode();
+            Random.InitState(_seed);
         }
 
         private void Start() {
@@ -47,6 +68,19 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
             left += right;
             up += left;
             down += up;
+        }
+
+        public void OnNewRoomCreated() {
+            _roomCount++;
+            if (_roomCount >= maxRoom) {
+                stopGeneration = true;
+            }
+        }
+
+        private void OnDestroy() {
+            if (this == _instance) {
+                _instance = null;
+            }
         }
 
         //private void Update() {
