@@ -18,19 +18,21 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         private Vector3 roomSize;
         private Collider[] colliders;
         private void Start() {
-            if (LevelGenerator.Instance.stopGeneration) {
-                Destroy(gameObject);
-                return;
-            }
-
-            roomSize = transform.parent.GetComponent<BoxCollider>().size;
-
             colliders = Physics.OverlapSphere(transform.position, 1f, RoomMask);
 
             if (colliders.Length > 0) {
                 Destroy(gameObject);
                 return;
             }
+            if (LevelGenerator.Instance.stopGeneration) {
+                SpawnWall();
+                Destroy(gameObject);
+                return;
+            }
+
+            roomSize = transform.parent.GetComponent<BoxCollider>().size;
+
+            
 
             if (Physics.OverlapSphere(transform.position, 1f, exitMask).Length > 1) {
                 SpawnWall();
