@@ -332,12 +332,12 @@ PrefabInstance:
     - target: {fileID: 6783974446017756601, guid: be1a821187a71d54f9a7fc8793d11bb1,
         type: 3}
       propertyPath: seed
-      value: 111
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6783974446017756601, guid: be1a821187a71d54f9a7fc8793d11bb1,
         type: 3}
       propertyPath: maxRoom
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6783974446017756601, guid: be1a821187a71d54f9a7fc8793d11bb1,
         type: 3}

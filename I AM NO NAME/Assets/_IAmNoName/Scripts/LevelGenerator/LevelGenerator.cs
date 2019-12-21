@@ -7,7 +7,8 @@ using UnityEngine;
 
 namespace Com.IsartDigital.IAmNoName.LevelGenerator {
     public class LevelGenerator : MonoBehaviour {
-        [SerializeField] private string seed = "seed";
+        [SerializeField] private int seed = 0;
+        [SerializeField] private bool randomSeed = false;
         [SerializeField] private Transform[] startingPositions;
         [SerializeField] private GameObject[] startingRooms;
         [Header("Rooms")]
@@ -55,8 +56,10 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
             }
             _instance = this;
 
-            _seed = seed.GetHashCode();
+
+            _seed = randomSeed ?Random.Range(0,9999999) : seed;
             Random.InitState(_seed);
+            Debug.Log("<size=22>Seed : "+ "<color=green>" + _seed + "</color></size>");
         }
 
         private void Start() {

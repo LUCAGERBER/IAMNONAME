@@ -48,8 +48,9 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         }
 
         private void SpawnWall() {
-            Debug.Log("wall");
+
             Instantiate(LevelGenerator.Instance.walls[0], transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
 
         private void CreateNewRoom() {
