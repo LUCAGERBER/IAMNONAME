@@ -6,7 +6,7 @@
 using UnityEngine;
 
 namespace Com.IsartDigital.IAmNoName.LevelGenerator {
-    public class LevelGeneration : MonoBehaviour {
+    public class LevelGenerator : MonoBehaviour {
         [SerializeField] private string seed = "seed";
         [SerializeField] private Transform[] startingPositions;
         [SerializeField] private GameObject[] startingRooms;
@@ -15,6 +15,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         [SerializeField] public GameObject[] rightRooms;
         [SerializeField] public GameObject[] topRooms;
         [SerializeField] public GameObject[] bottomRooms;
+        [SerializeField] public GameObject[] walls;
         [Space]
         [SerializeField] private LayerMask RoomMask;
         [SerializeField] private float moveAmount;
@@ -37,8 +38,8 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         private int _roomCount;
         private int _seed;
 
-        private static LevelGeneration _instance;
-        public static LevelGeneration Instance { get { return _instance; } }
+        private static LevelGenerator _instance;
+        public static LevelGenerator Instance { get { return _instance; } }
 
         private enum Direction {
             rigth,

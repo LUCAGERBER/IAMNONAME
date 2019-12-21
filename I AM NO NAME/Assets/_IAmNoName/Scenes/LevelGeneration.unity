@@ -315,6 +315,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6783974446017756601, guid: be1a821187a71d54f9a7fc8793d11bb1,
         type: 3}
+      propertyPath: walls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6783974446017756601, guid: be1a821187a71d54f9a7fc8793d11bb1,
+        type: 3}
       propertyPath: startingPositions.Array.data[0]
       value: 
       objectReference: {fileID: 1320692905}
@@ -327,13 +332,19 @@ PrefabInstance:
     - target: {fileID: 6783974446017756601, guid: be1a821187a71d54f9a7fc8793d11bb1,
         type: 3}
       propertyPath: seed
-      value: 999
+      value: 111
       objectReference: {fileID: 0}
     - target: {fileID: 6783974446017756601, guid: be1a821187a71d54f9a7fc8793d11bb1,
         type: 3}
       propertyPath: maxRoom
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6783974446017756601, guid: be1a821187a71d54f9a7fc8793d11bb1,
+        type: 3}
+      propertyPath: walls.Array.data[0]
+      value: 
+      objectReference: {fileID: 3134565393614846881, guid: b389c64ba4466c642b6c41b7ef06e959,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be1a821187a71d54f9a7fc8793d11bb1, type: 3}
 --- !u!1 &1789060680

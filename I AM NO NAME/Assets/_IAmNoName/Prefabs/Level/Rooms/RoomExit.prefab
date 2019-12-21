@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2396182542159779075}
   - component: {fileID: 5075185124952430514}
   - component: {fileID: 2491153424162043965}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: RoomExit
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -47,6 +47,9 @@ MonoBehaviour:
   RoomMask:
     serializedVersion: 2
     m_Bits: 1024
+  exitMask:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!65 &2491153424162043965
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
     public class SpawnRoom : MonoBehaviour {
 
         [SerializeField] private LayerMask RoomMask;
+        [SerializeField] private LayerMask exitMask;
 
         public event System.Action OnRoomCreated;
 
@@ -17,26 +18,36 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         private Vector3 roomSize;
         private Collider[] colliders;
         private void Start() {
-            if (LevelGeneration.Instance.stopGeneration) {
+            if (LevelGenerator.Instance.stopGeneration) {
+                Destroy(gameObject);
                 return;
             }
 
             roomSize = transform.parent.GetComponent<BoxCollider>().size;
 
-            colliders = Physics.OverlapSphere(transform.position, 0.1f, RoomMask);
+            colliders = Physics.OverlapSphere(transform.position, 1f, RoomMask);
 
-            if (colliders.Length > 1) {
+            if (colliders.Length > 0) {
                 Destroy(gameObject);
+                return;
             }
 
-            OnRoomCreated += LevelGeneration.Instance.OnNewRoomCreated;
+            if (Physics.OverlapSphere(transform.position, 1f, exitMask).Length > 1) {
+                SpawnWall();
+                return;
+            }
 
-
+            OnRoomCreated += LevelGenerator.Instance.OnNewRoomCreated;
 
             distanceFromCenter = transform.position - transform.parent.position;
             //Debug.Log(distanceFromCenter);
             Invoke("CreateNewRoom", 0.1f);
             //CreateNewRoom();
+        }
+
+        private void SpawnWall() {
+            Debug.Log("wall");
+            Instantiate(LevelGenerator.Instance.walls[0], transform.position, Quaternion.identity);
         }
 
         private void CreateNewRoom() {
@@ -46,8 +57,8 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
             // create right or left
             if (Mathf.Abs(distanceFromCenter.x) > Mathf.Abs(distanceFromCenter.y)) {
                 if (distanceFromCenter.x > 0) {
-                    int rand = Random.Range(0, LevelGeneration.Instance.leftRooms.Length);
-                    nextRoom = Instantiate(LevelGeneration.Instance.leftRooms[rand], transform.position, Quaternion.identity);
+                    int rand = Random.Range(0, LevelGenerator.Instance.leftRooms.Length);
+                    nextRoom = Instantiate(LevelGenerator.Instance.leftRooms[rand], transform.position, Quaternion.identity);
 
                     nextRoomSize = nextRoom.GetComponent<BoxCollider>().size;
 
@@ -57,8 +68,8 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
                 }
                 // room with rigth open
                 else {
-                    int rand = Random.Range(0, LevelGeneration.Instance.rightRooms.Length);
-                    nextRoom = Instantiate(LevelGeneration.Instance.rightRooms[rand], transform.position, Quaternion.identity);
+                    int rand = Random.Range(0, LevelGenerator.Instance.rightRooms.Length);
+                    nextRoom = Instantiate(LevelGenerator.Instance.rightRooms[rand], transform.position, Quaternion.identity);
 
                     nextRoomSize = nextRoom.GetComponent<BoxCollider>().size;
 
@@ -70,8 +81,8 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
                 // create up or down
             } else {
                 if (distanceFromCenter.y > 0) {
-                    int rand = Random.Range(0, LevelGeneration.Instance.bottomRooms.Length);
-                    nextRoom = Instantiate(LevelGeneration.Instance.bottomRooms[rand], transform.position, Quaternion.identity);
+                    int rand = Random.Range(0, LevelGenerator.Instance.bottomRooms.Length);
+                    nextRoom = Instantiate(LevelGenerator.Instance.bottomRooms[rand], transform.position, Quaternion.identity);
 
                     nextRoomSize = nextRoom.GetComponent<BoxCollider>().size;
 
@@ -81,8 +92,8 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
                 }
                 // room with rigth open
                 else {
-                    int rand = Random.Range(0, LevelGeneration.Instance.topRooms.Length);
-                    nextRoom = Instantiate(LevelGeneration.Instance.topRooms[rand], transform.position, Quaternion.identity);
+                    int rand = Random.Range(0, LevelGenerator.Instance.topRooms.Length);
+                    nextRoom = Instantiate(LevelGenerator.Instance.topRooms[rand], transform.position, Quaternion.identity);
 
                     nextRoomSize = nextRoom.GetComponent<BoxCollider>().size;
 
