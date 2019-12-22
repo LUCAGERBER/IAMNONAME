@@ -14,13 +14,13 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
 
         public event System.Action OnRoomCreated;
 
-        private Vector3 distanceFromCenter;
-        private Vector3 roomSize;
-        private Collider[] colliders;
+        private Vector3 _distanceFromCenter;
+        private Vector3 _roomSize;
+        private Collider[] _colliders;
         private void Start() {
-            colliders = Physics.OverlapSphere(transform.position, 1f, RoomMask);
+            _colliders = Physics.OverlapSphere(transform.position, 1f, RoomMask);
 
-            if (colliders.Length > 0) {
+            if (_colliders.Length > 0) {
                 Destroy(gameObject);
                 return;
             }
@@ -31,7 +31,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
                 return;
             }
 
-            roomSize = transform.parent.GetComponent<BoxCollider>().size;
+            _roomSize = transform.parent.GetComponent<BoxCollider>().size;
 
 
 
@@ -42,10 +42,8 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
 
             OnRoomCreated += LevelGenerator.Instance.OnNewRoomCreated;
 
-            distanceFromCenter = transform.position - transform.parent.position;
-            //Debug.Log(distanceFromCenter);
-            Invoke("CreateNewRoom", 0.1f);
-            //CreateNewRoom();
+            _distanceFromCenter = transform.position - transform.parent.position;
+            Invoke("CreateNewRoom", LevelGenerator.Instance.startTimeBtwSpawn);
         }
 
         private void SpawnWall() {
@@ -59,14 +57,14 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
             Vector3 nextRoomPos = Vector3.zero;
             Vector3 nextRoomSize = Vector3.zero;
             // create right or left
-            if (Mathf.Abs(distanceFromCenter.x) > Mathf.Abs(distanceFromCenter.y)) {
-                if (distanceFromCenter.x > 0) {
+            if (Mathf.Abs(_distanceFromCenter.x) > Mathf.Abs(_distanceFromCenter.y)) {
+                if (_distanceFromCenter.x > 0) {
                     int rand = Random.Range(0, LevelGenerator.Instance.leftRooms.Length);
                     nextRoom = Instantiate(LevelGenerator.Instance.leftRooms[rand], transform.position, Quaternion.identity);
 
                     nextRoomSize = nextRoom.GetComponent<BoxCollider>().size;
 
-                    nextRoomPos = transform.parent.position + new Vector3(roomSize.x / 2 + nextRoomSize.x / 2, distanceFromCenter.y + nextRoom.GetComponentInChildren<SpawnRoom>().distanceFromCenter.y, 0);
+                    nextRoomPos = transform.parent.position + new Vector3(_roomSize.x / 2 + nextRoomSize.x / 2, _distanceFromCenter.y + nextRoom.GetComponentInChildren<SpawnRoom>()._distanceFromCenter.y, 0);
                 }
                 // room with rigth open
                 else {
@@ -75,26 +73,30 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
 
                     nextRoomSize = nextRoom.GetComponent<BoxCollider>().size;
 
-                    nextRoomPos = transform.parent.position - new Vector3(roomSize.x / 2 + nextRoomSize.x / 2, distanceFromCenter.y + nextRoom.GetComponentInChildren<SpawnRoom>().distanceFromCenter.y, 0);
+                    nextRoomPos = transform.parent.position - new Vector3(_roomSize.x / 2 + nextRoomSize.x / 2, _distanceFromCenter.y + nextRoom.GetComponentInChildren<SpawnRoom>()._distanceFromCenter.y, 0);
                 }
                 // create up or down
             } else {
-                if (distanceFromCenter.y > 0) {
+                if (_distanceFromCenter.y > 0) {
                     int rand = Random.Range(0, LevelGenerator.Instance.bottomRooms.Length);
                     nextRoom = Instantiate(LevelGenerator.Instance.bottomRooms[rand], transform.position, Quaternion.identity);
 
                     nextRoomSize = nextRoom.GetComponent<BoxCollider>().size;
 
-                    nextRoomPos = transform.parent.position + new Vector3(distanceFromCenter.x + nextRoom.GetComponentInChildren<SpawnRoom>().distanceFromCenter.x, roomSize.y / 2 + nextRoomSize.y / 2, 0);
+                    nextRoomPos = transform.parent.position + new Vector3(_distanceFromCenter.x + nextRoom.GetComponentInChildren<SpawnRoom>()._distanceFromCenter.x, _roomSize.y / 2 + nextRoomSize.y / 2, 0);
                 } else {
                     int rand = Random.Range(0, LevelGenerator.Instance.topRooms.Length);
                     nextRoom = Instantiate(LevelGenerator.Instance.topRooms[rand], transform.position, Quaternion.identity);
 
                     nextRoomSize = nextRoom.GetComponent<BoxCollider>().size;
 
-                    nextRoomPos = transform.parent.position - new Vector3(distanceFromCenter.x + nextRoom.GetComponentInChildren<SpawnRoom>().distanceFromCenter.x, roomSize.y / 2 + nextRoomSize.y / 2, 0);
+                    nextRoomPos = transform.parent.position - new Vector3(_distanceFromCenter.x + nextRoom.GetComponentInChildren<SpawnRoom>()._distanceFromCenter.x, _roomSize.y / 2 + nextRoomSize.y / 2, 0);
                 }
+
+
             }
+            Debug.Log(_distanceFromCenter);
+            Debug.Log(nextRoom.GetComponentInChildren<SpawnRoom>()._distanceFromCenter);
 
             nextRoom.transform.position = nextRoomPos;
 

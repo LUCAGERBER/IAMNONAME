@@ -20,7 +20,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         [Space]
         [SerializeField] private LayerMask RoomMask;
         [SerializeField] private float moveAmount;
-        [SerializeField] private float startTimeBtwSpawn = 0.25f;
+        [SerializeField] public float startTimeBtwSpawn = 0.25f;
         [Header("Level Size")]
         [SerializeField] private int maxRoomLegth;
         [SerializeField] private int maxRoom;
