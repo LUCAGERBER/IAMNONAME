@@ -299,7 +299,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ca5a782d3e32c4db394e5000aa3e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  bottomExit: []
+  topExit: []
+  leftExit:
+  - {fileID: 2485874776426380099}
+  rigtExit:
+  - {fileID: 7517037587454990175}
 --- !u!65 &-3000384317299932089
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1358,7 +1363,7 @@ PrefabInstance:
     - target: {fileID: 3728413423264183842, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
       propertyPath: m_Name
-      value: RoomExit
+      value: L
       objectReference: {fileID: 0}
     - target: {fileID: 2396182542159779075, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
@@ -1433,7 +1438,7 @@ PrefabInstance:
     - target: {fileID: 3728413423264183842, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
       propertyPath: m_Name
-      value: RoomExit (1)
+      value: R
       objectReference: {fileID: 0}
     - target: {fileID: 2396182542159779075, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}

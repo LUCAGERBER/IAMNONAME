@@ -791,7 +791,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ca5a782d3e32c4db394e5000aa3e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  bottomExit:
+  - {fileID: 1227006591705383197}
+  topExit:
+  - {fileID: 1936769527687548065}
+  leftExit:
+  - {fileID: 8367143102631769714}
+  rigtExit: []
 --- !u!65 &1250952959626497933
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1175,7 +1181,7 @@ PrefabInstance:
     - target: {fileID: 3728413423264183842, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
       propertyPath: m_Name
-      value: RoomExit (1)
+      value: B
       objectReference: {fileID: 0}
     - target: {fileID: 2396182542159779075, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
@@ -1250,7 +1256,7 @@ PrefabInstance:
     - target: {fileID: 3728413423264183842, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
       propertyPath: m_Name
-      value: RoomExit (2)
+      value: T
       objectReference: {fileID: 0}
     - target: {fileID: 2396182542159779075, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
@@ -1325,7 +1331,7 @@ PrefabInstance:
     - target: {fileID: 3728413423264183842, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
       propertyPath: m_Name
-      value: RoomExit
+      value: L
       objectReference: {fileID: 0}
     - target: {fileID: 2396182542159779075, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}

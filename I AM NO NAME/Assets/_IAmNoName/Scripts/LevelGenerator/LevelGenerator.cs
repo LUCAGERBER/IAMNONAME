@@ -19,13 +19,10 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         [SerializeField] public GameObject[] walls;
         [Space]
         [SerializeField] private LayerMask RoomMask;
-        [SerializeField] private float moveAmount;
-        [SerializeField] public float startTimeBtwSpawn = 0.25f;
+        [SerializeField] public float timeBetweenSpawn = 0.25f;
         [Header("Level Size")]
         [SerializeField] private int maxRoomLegth;
         [SerializeField] private int maxRoom;
-        // [SerializeField] private float minX;
-        // [SerializeField] private float maxX, minY, maxY;
         [Header("Direction Percent")]
         [SerializeField] private float right;
         [SerializeField] private float left, up, down;
@@ -33,8 +30,6 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         
         [HideInInspector] public bool stopGeneration = false;
 
-        private float _timeBtwRoom;
-        private int _direction;
         private int _downCounter;
         private int _roomCount;
         private int _seed;
@@ -65,10 +60,6 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         private void Start() {
             CreateStartRoom();
 
-            _direction = Random.Range(0, 101);
-            _timeBtwRoom = startTimeBtwSpawn;
-
-            // define total percent
             left += right;
             up += left;
             down += up;

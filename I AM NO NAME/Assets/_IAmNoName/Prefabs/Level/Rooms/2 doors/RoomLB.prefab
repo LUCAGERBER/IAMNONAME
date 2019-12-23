@@ -659,7 +659,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ca5a782d3e32c4db394e5000aa3e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  bottomExit:
+  - {fileID: 1256934329657129672}
+  topExit: []
+  leftExit:
+  - {fileID: 6766889291387761655}
+  rigtExit: []
 --- !u!65 &-5257923707533043446
 BoxCollider:
   m_ObjectHideFlags: 0

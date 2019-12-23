@@ -43,7 +43,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
             OnRoomCreated += LevelGenerator.Instance.OnNewRoomCreated;
 
             _distanceFromCenter = transform.position - transform.parent.position;
-            Invoke("CreateNewRoom", LevelGenerator.Instance.startTimeBtwSpawn);
+            Invoke("CreateNewRoom", LevelGenerator.Instance.timeBetweenSpawn);
         }
 
         private void SpawnWall() {

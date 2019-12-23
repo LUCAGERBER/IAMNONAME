@@ -302,7 +302,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ca5a782d3e32c4db394e5000aa3e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  bottomExit: []
+  topExit: []
+  leftExit: []
+  rigtExit:
+  - {fileID: 8652999901402397065}
 --- !u!65 &-3000384317299932089
 BoxCollider:
   m_ObjectHideFlags: 0
