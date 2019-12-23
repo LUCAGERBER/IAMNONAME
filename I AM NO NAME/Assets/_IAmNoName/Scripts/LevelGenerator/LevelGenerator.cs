@@ -70,9 +70,8 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         public void OnNewRoomCreated(GameObject room) {
             _roomCount++;
             rooms.Add(room);
-            if (_roomCount >= maxRoom) {
+            if (_roomCount >= maxRoom && !stopGeneration) {
                 stopGeneration = true;
-                Debug.Log(rooms.Count);
                 Debug.Log("<size=22><color=purple>Level Generated</color></size>");
             }
         }

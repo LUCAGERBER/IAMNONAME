@@ -18,7 +18,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         private Vector3 _roomSize;
         private Collider[] _colliders;
         private void Start() {
-            _colliders = Physics.OverlapSphere(transform.position, 1f, RoomMask);
+            _colliders = Physics.OverlapSphere(transform.position, .1f, RoomMask);
 
             if (_colliders.Length > 0) {
                 Destroy(gameObject);

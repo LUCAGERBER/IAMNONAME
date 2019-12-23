@@ -16,5 +16,11 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         public void RoomDestruction() {
             Destroy(gameObject);
         }
-	}
+
+        private void OnTriggerEnter(Collider other) {
+            if (other.gameObject.layer == gameObject.layer) {
+                Debug.Log("<size=22><color=red>Overlap</color></size>");
+            }
+        }
+    }
 }
