@@ -3,6 +3,7 @@
 /// Date : 09/12/2019 19:55
 ///-----------------------------------------------------------------
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.IsartDigital.IAmNoName.LevelGenerator {
@@ -19,7 +20,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         [SerializeField] public GameObject[] walls;
         [Space]
         [SerializeField] private LayerMask RoomMask;
-        [SerializeField] public float timeBetweenSpawn = 0.25f;
+        [SerializeField,Range(0.1f,1f)] public float timeBetweenSpawn = 0.25f;
         [Header("Level Size")]
         [SerializeField] private int maxRoomLegth;
         [SerializeField] private int maxRoom;
@@ -33,6 +34,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         private int _downCounter;
         private int _roomCount;
         private int _seed;
+        private List<GameObject> rooms = new List<GameObject>();
 
         private static LevelGenerator _instance;
         public static LevelGenerator Instance { get { return _instance; } }
@@ -65,10 +67,13 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
             down += up;
         }
 
-        public void OnNewRoomCreated() {
+        public void OnNewRoomCreated(GameObject room) {
             _roomCount++;
+            rooms.Add(room);
             if (_roomCount >= maxRoom) {
                 stopGeneration = true;
+                Debug.Log(rooms.Count);
+                Debug.Log("<size=22><color=purple>Level Generated</color></size>");
             }
         }
 

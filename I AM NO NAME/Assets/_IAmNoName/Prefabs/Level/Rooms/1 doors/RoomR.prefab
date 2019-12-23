@@ -305,7 +305,7 @@ MonoBehaviour:
   bottomExit: []
   topExit: []
   leftExit: []
-  rigtExit:
+  rightExit:
   - {fileID: 8652999901402397065}
 --- !u!65 &-3000384317299932089
 BoxCollider:
@@ -1545,7 +1545,7 @@ PrefabInstance:
     - target: {fileID: 3728413423264183842, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}
       propertyPath: m_Name
-      value: RoomExit
+      value: R
       objectReference: {fileID: 0}
     - target: {fileID: 2396182542159779075, guid: b047e4354a8adc84d9b88be62981260b,
         type: 3}

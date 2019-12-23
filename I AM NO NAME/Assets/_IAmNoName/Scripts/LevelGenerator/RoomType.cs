@@ -8,10 +8,10 @@ using UnityEngine;
 namespace Com.IsartDigital.IAmNoName.LevelGenerator {
 	public class RoomType : MonoBehaviour {
 
-        [SerializeField] private Transform[] bottomExit;
-        [SerializeField] private Transform[] topExit;
-        [SerializeField] private Transform[] leftExit;
-        [SerializeField] private Transform[] rigtExit;
+        [SerializeField] public Transform[] bottomExit;
+        [SerializeField] public Transform[] topExit;
+        [SerializeField] public Transform[] leftExit;
+        [SerializeField] public Transform[] rightExit;
 
         public void RoomDestruction() {
             Destroy(gameObject);
