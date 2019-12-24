@@ -9,7 +9,16 @@ using UnityEngine;
 namespace Com.IsartDigital.IAmNoName {
 	public class Player : MonoBehaviour {
 
+		private float currentSpeed = 5;
+		private bool isRunning = false;
+		[Header("Run values")]
         [SerializeField] private float speed = 5;
+		// Vitesse maximale d'impulsion avant la course
+        [SerializeField] private float impulseSpeed = 10;
+		// Gère le temps pendant lequel on est à impulseSpeed avant de revenir à speed
+		[SerializeField] private float impulseLength = 1f;
+
+		[Space]
         [SerializeField] private float dashSpeed = 20;
         [SerializeField] private float dashLength = 1;
 
@@ -47,8 +56,6 @@ namespace Com.IsartDigital.IAmNoName {
         private bool jumpKey;
         private bool isGrounded;
 
-
-
         private void OnTriggerEnter(Collider other)
         {
             other.GetComponentInParent<Enemy>().Kill();
@@ -56,7 +63,8 @@ namespace Com.IsartDigital.IAmNoName {
 
         private void Start ()
         {
-            previousSpeed = speed;
+			currentSpeed = impulseSpeed;
+            previousSpeed = currentSpeed;
             myAudioSource = GetComponent<AudioSource>();
             rb = GetComponent<Rigidbody>();
 		}
@@ -70,7 +78,10 @@ namespace Com.IsartDigital.IAmNoName {
             if (Input.GetKeyDown(KeyCode.LeftShift)) TimeManager.Instance.SlowTime();
             else if(Input.GetKeyUp(KeyCode.LeftShift)) TimeManager.Instance.ResetTime();
 
-            if (Input.GetMouseButtonDown(1)) Dash();
+			//if (Input.GetMouseButtonDown(1)) Dash();
+
+			if (!isRunning && Input.GetAxis(Horizontal) != 0f) Run();
+			else if (Input.GetAxis(Horizontal) == 0f) isRunning = false;
 		}
 
         private void FixedUpdate()
@@ -85,8 +96,8 @@ namespace Com.IsartDigital.IAmNoName {
         private void Dash()
         {
             TimeManager.Instance.ResetTime();
-            previousSpeed = speed;
-            speed = dashSpeed;
+            previousSpeed = currentSpeed;
+            currentSpeed = dashSpeed;
             myAudioSource.PlayOneShot(swordSlash);
             //Invoke("ReturnSword", .2f);
         }
@@ -112,26 +123,64 @@ namespace Com.IsartDigital.IAmNoName {
             }
 
             rb.AddForce(new Vector3(0, jumpDownStrength, 0), ForceMode.Impulse);
-        }
+		}
 
-        public void ReturnSword()
+		private void Run()
+		{
+			Debug.Log("Start run");
+			isRunning = true;
+			previousSpeed = currentSpeed = impulseSpeed;
+			StartCoroutine(RunCoroutine());
+		}
+
+		private IEnumerator RunCoroutine()
+		{
+			float elapsed = 0f;
+			float hValue = 0f;
+
+			while (hValue != 1f)
+			{
+				Debug.Log("Waiting max input");
+				hValue = Mathf.Abs(Input.GetAxis(Horizontal));
+
+				if (Input.GetAxis(Horizontal) == 0f)
+				{
+					Debug.Log("Quit run before max input");
+					elapsed = impulseLength;
+					hValue = 1f;
+				}
+
+				yield return null;
+			}
+
+			while (elapsed <= impulseLength)
+			{
+				elapsed += Time.deltaTime;
+				Debug.Log("while at maxInput");
+				yield return null;
+			}
+
+			previousSpeed = currentSpeed = speed;
+		}
+
+		public void ReturnSword()
         {
             myAudioSource.PlayOneShot(swordReturned);
         }
 
-        private void Move()
+		private void Move()
         {
-            if(previousSpeed != speed)
+            if(previousSpeed != currentSpeed)
             {
                 elapsedTime += Time.fixedDeltaTime;
                 if(elapsedTime >= dashLength)
                 {
-                    speed = previousSpeed;
+                    currentSpeed = previousSpeed;
                     elapsedTime = 0;
                 }
             }
 
-            transform.position += transform.forward * Input.GetAxis(Horizontal) * speed * Time.fixedDeltaTime;
+            transform.position += transform.forward * Input.GetAxis(Horizontal) * currentSpeed * Time.fixedDeltaTime;
         }
     }
 }

@@ -340,6 +340,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  impulsionSpeed: 20
+  impulsionLength: 0.025
   dashSpeed: 100
   dashLength: 0.1
   jumpStrength: 26
