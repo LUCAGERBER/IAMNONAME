@@ -33,6 +33,8 @@ namespace Com.IsartDigital.IAmNoName {
 
         [SerializeField] private LayerMask groundLayer;
 
+        [SerializeField] private GameObject trail;
+
         private float previousSpeed;
         private float elapsedTime;
         private float slowDelay = .1f;
@@ -47,11 +49,11 @@ namespace Com.IsartDigital.IAmNoName {
         private bool jumpKey;
         private bool isGrounded;
 
-
+        private Animator animator;
 
         private void OnTriggerEnter(Collider other)
         {
-            other.GetComponentInParent<Enemy>().Kill();
+            if(other.CompareTag("Enemy")) other.GetComponentInParent<Enemy>().Kill();
         }
 
         private void Start ()
@@ -59,12 +61,11 @@ namespace Com.IsartDigital.IAmNoName {
             previousSpeed = speed;
             myAudioSource = GetComponent<AudioSource>();
             rb = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
 		}
 		
 		private void Update () 
         {
-            //if(Input.GetKeyDown(KeyCode.Space)) myAudioSource.PlayOneShot(swordDraw);
-
             jumpKey = Input.GetButton(jumpButton);
 
             if (Input.GetKeyDown(KeyCode.LeftShift)) TimeManager.Instance.SlowTime();
@@ -77,7 +78,10 @@ namespace Com.IsartDigital.IAmNoName {
         {
             Move();
 
-            isGrounded = Physics.Raycast(transform.position, -transform.up, transform.localScale.x/2, groundLayer);
+            isGrounded = Physics.Raycast(transform.position, -transform.up, transform.localScale.x/2 +.05f, groundLayer);
+
+            //animator.SetBool("isGrounded", isGrounded);
+            //animator.SetFloat("verticalVelocity", rb.velocity.y);
 
             if (jumpKey && isGrounded) Jump();
         }
@@ -88,6 +92,7 @@ namespace Com.IsartDigital.IAmNoName {
             previousSpeed = speed;
             speed = dashSpeed;
             myAudioSource.PlayOneShot(swordSlash);
+            trail.SetActive(true);
             //Invoke("ReturnSword", .2f);
         }
 
@@ -102,7 +107,7 @@ namespace Com.IsartDigital.IAmNoName {
             float elapsed = 0f;
             float baseHeight = rb.velocity.y;
 
-            rb.AddForce(new Vector3(0, jumpStrength, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, jumpStrength * Time.fixedDeltaTime, 0), ForceMode.Impulse);
 
             while (elapsed <= jumpLength)
             {
@@ -127,6 +132,7 @@ namespace Com.IsartDigital.IAmNoName {
                 if(elapsedTime >= dashLength)
                 {
                     speed = previousSpeed;
+                    trail.SetActive(false);
                     elapsedTime = 0;
                 }
             }
