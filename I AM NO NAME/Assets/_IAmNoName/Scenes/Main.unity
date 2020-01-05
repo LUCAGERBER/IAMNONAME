@@ -40894,10 +40894,10 @@ MonoBehaviour:
   speed: 10
   dashSpeed: 100
   dashLength: 0.1
-  jumpStrength: 300
-  jumpLength: 0.2
-  jumpHeight: 3
-  jumpDownStrength: 1
+  jumpStrength: 600
+  jumpLength: 0.1
+  jumpHeight: 5
+  jumpDownStrength: 2
   swordDraw: {fileID: 8300000, guid: b64a3dce701290745850a2b999fdb666, type: 3}
   swordReturned: {fileID: 8300000, guid: 7ae7ab38dbf8d234f9295273c25acb34, type: 3}
   swordSlash: {fileID: 8300000, guid: e3bc8770d59b355459711aee7978daf1, type: 3}
@@ -66437,7 +66437,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh13242
+  m_Name: pb_Mesh18990
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

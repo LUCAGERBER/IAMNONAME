@@ -116,7 +116,7 @@ namespace Com.IsartDigital.IAmNoName {
                 yield return null;
             }
 
-            rb.AddForce(new Vector3(0, jumpDownStrength, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, -jumpDownStrength, 0), ForceMode.Impulse);
         }
 
         public void ReturnSword()
