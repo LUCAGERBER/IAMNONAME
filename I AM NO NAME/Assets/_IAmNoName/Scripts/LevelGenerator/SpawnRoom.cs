@@ -18,13 +18,16 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         private Vector3 _roomSize;
         private Collider[] _colliders;
         private void Start() {
-            _colliders = Physics.OverlapSphere(transform.position, .1f, RoomMask);
+            // detect if this exit is in an other room
+            _colliders = Physics.OverlapSphere(transform.position, .01f, RoomMask);
 
+            // delete this exit if it is in an other room
             if (_colliders.Length > 0) {
                 Destroy(gameObject);
                 return;
             }
 
+            // stop gen if n room created
             if (LevelGenerator.Instance.stopGeneration) {
                 SpawnWall();
                 Destroy(gameObject);
@@ -33,30 +36,34 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
 
             _roomSize = transform.parent.GetComponent<BoxCollider>().size;
 
-
-
+            // if overlap with an other exit, create wall
             if (Physics.OverlapSphere(transform.position, 2f, exitMask).Length > 1) {
                 SpawnWall();
                 return;
             }
-
+            
+            // add event to level generator
             OnRoomCreated += LevelGenerator.Instance.OnNewRoomCreated;
 
             _distanceFromCenter = transform.position - transform.parent.position;
+
             Invoke("CreateNewRoom", LevelGenerator.Instance.timeBetweenSpawn);
         }
 
+        // spawn walls
         private void SpawnWall() {
-
             GameObject wall = Instantiate(LevelGenerator.Instance.walls[0], transform.position, Quaternion.identity);
             wall.transform.SetParent(transform.parent);
             Destroy(gameObject);
         }
 
+        // create next room based on this exit.
         private void CreateNewRoom() {
+            // setup
             GameObject nextRoom = null;
             Vector3 nextRoomPos = Vector3.zero;
             Vector3 nextRoomSize = Vector3.zero;
+
             // create right or left
             if (Mathf.Abs(_distanceFromCenter.x) > Mathf.Abs(_distanceFromCenter.y)) {
                 if (_distanceFromCenter.x > 0) {

@@ -13,6 +13,7 @@ namespace Com.IsartDigital.IAmNoName.LevelGenerator {
         [SerializeField] public Transform[] leftExit;
         [SerializeField] public Transform[] rightExit;
 
+
         public void RoomDestruction() {
             Destroy(gameObject);
         }
